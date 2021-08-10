@@ -1,0 +1,103 @@
+<view class="container">
+    <view class="header">
+        <view class="header-top">
+            <text class="iconfont icon-search"></text>
+            <input class="query" focus="true" placeholder="搜索"></input>
+        </view>
+    </view>
+    <view class="body">
+        <view class="body-top">
+            <view class="section hot">
+                <view class="name">热搜</view>
+                <view class="words">
+                    <text>外婆家</text>
+                    <text>肯德基</text>
+                    <text>老村长</text>
+                    <text>外婆家</text>
+                    <text>肯德基</text>
+                    <text>老村长</text>
+                    <text>外婆家</text>
+                    <text>肯德基</text>
+                    <text>老村长</text>
+                </view>
+            </view>
+            <view class="section history">
+                <view class="name">历史</view>
+                <view class="words">
+                    <text>饺子</text>
+                    <text>炸鸡</text>
+                </view>
+            </view>
+        </view>
+        <view class="body-list">
+            <view class="item">
+                <navigator url="index"></navigator>
+                <image class="logo"></image>
+                <view>
+                    <text class="name">名称</text>
+                    <view class="grade">
+                        <view class="left">
+                            <text class="score">
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_half"></text>
+                                <text class="value">4.5</text>
+                            </text>
+                            <text class="sale">月销87单</text>
+                        </view>
+                        <view class="right">
+                            <text class="distance"></text>
+                            <text class="minutes"></text>
+                        </view>
+                    </view>
+                    <view class="desc">
+                        <text class="money">20元起送</text>
+                        <text class="money">配送费2元</text>
+                    </view>
+                    <view class="promotions">
+                        <view>
+                            <text>折</text>满50减5</view>
+                        <view>
+                            <text>促</text>折扣商品8折起</view>
+                    </view>
+                </view>
+            </view>
+            <view class="item">
+                <navigator url="index"></navigator>
+                <image class="logo"></image>
+                <view>
+                    <text class="name">名称</text>
+                    <view class="grade">
+                        <view class="left">
+                            <text class="score">
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_half"></text>
+                                <text class="iconfont icon-star"></text>
+                                <text class="value">3.5</text>
+                            </text>
+                            <text class="sale">月销87单</text>
+                        </view>
+                        <view class="right">
+                            <text class="distance"></text>
+                            <text class="minutes"></text>
+                        </view>
+                    </view>
+                    <view class="desc">
+                        <text class="money">20元起送</text>
+                        <text class="money">配送费2元</text>
+                    </view>
+                    <view class="promotions">
+                        <view>
+                            <text>折</text>满50减5</view>
+                        <view>
+                            <text>促</text>折扣商品8折起</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

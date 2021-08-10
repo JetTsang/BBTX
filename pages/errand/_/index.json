@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "帮帮同学",
+    "backgroundColor": "#FBD40A",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "light",
+    "component": true,
+    "usingComponents": {
+        "dialog": "/components/dialog",
+        "avatar": "/components/avatar"
+    }
+}

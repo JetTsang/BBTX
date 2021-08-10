@@ -1,0 +1,53 @@
+<view class="container">
+    <dialog bindclose="onDialogClose" hidden="{{dialogType!='authorize'}}" maskOpacity="0.5">
+        <view class="dialog-authorize">
+            <view class="content">
+                <view class="caption">帮帮同学申请获取以下权限：</view>
+                <view class="desc">• 获得你的公开信息（昵称、头像等）</view>
+            </view>
+            <button bindgetuserinfo="onAuthorizeCallback" openType="getUserInfo">立即授权</button>
+        </view>
+    </dialog>
+    <view class="header">
+        <view class="profile">
+            <view bind:tap="onAvatarTap" catch:longtap="onAvatarLongTap" class="avatar">
+                <view catchtap="onAuthTap" class="auth{{model.VerifyStatus==3?' auth-warn':''}}" hoverClass="navigator-hover" wx:if="{{model.VerifyStatus!=2}}">
+                    <text class="iconfont {{model.VerifyStatus==1?'icon-time':model.VerifyStatus==3?'icon-warn':'icon-coin'}}"></text>{{model.VerifyStatus==1?'认证审核中':model.VerifyStatus==3?'认证审核失败':'点我进行认证学生'}}</view>
+                <avatar color="#ddd" size="160" src="{{userInfo.AvatarUrl}}"></avatar>
+            </view>
+            <text class="name">{{userInfo.NickName}}</text>
+        </view>
+        <view class="assets">
+            <navigator url="../account/index">
+                <text class="money money-yuan">{{model.Balance}}</text>
+                <text class="type">余额</text>
+            </navigator>
+
+        </view>
+    </view>
+    <view class="body">
+        <view class="section">
+            <navigator class="item" url="../address/index">
+                <text class="title">我的地址</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+            <view class="hr"></view>
+            <navigator class="item" url="../message/index">
+                <text class="title">我的消息</text>
+                <text class="value value-msg" wx:if="{{model.MessageCount}}">{{model.MessageCount}}</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+        </view>
+        <view class="section">
+            <button class="item" openType="contact" plain="true">
+                <text class="title">在线客服</text>
+                <text class="iconfont icon-right_light"></text>
+            </button>
+        </view>
+        <view class="service">
+            <view wx:if="{{model.ServicePhone&&model.ServicePhone.length}}">客服电话：<text bindtap="onServicePhoneTap" hoverClass="navigator-hover">{{model.ServicePhone}}</text>
+            </view>
+            <view bindtap="onServiceDescTap" wx:if="{{model.ServiceDesc}}">{{model.ServiceDesc}}</view>
+        </view>
+    </view>
+</view>

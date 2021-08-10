@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "",
+    "backgroundColor": "#FBD40A",
+    "component": true,
+    "usingComponents": {
+        "popup": "/components/popup",
+        "dialog": "/components/dialog",
+        "avatar": "/components/avatar"
+    }
+}

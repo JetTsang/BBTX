@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "下单",
+    "backgroundColor": "#FBD40A",
+    "component": true,
+    "usingComponents": {
+        "popup": "/components/popup",
+        "dialog": "/components/dialog"
+    }
+}

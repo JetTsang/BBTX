@@ -1,0 +1,8 @@
+/* pages/adsite/index.wxss */
+view{
+  margin:0rpx;
+  padding: 0rpx;
+}
+image{
+  display: block;
+}

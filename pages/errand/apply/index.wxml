@@ -1,0 +1,175 @@
+<view class="container">
+    <view class="page-mask" wx:if="{{isBusy}}"></view>
+    <dialog bindclose="onDialogClose" hidden="{{dialogType!='authorize'}}" maskOpacity="0.5">
+        <view class="dialog-authorize">
+            <view class="content">
+                <view class="caption">帮帮同学申请获取以下权限：</view>
+                <view class="desc">• 获得你的公开信息（昵称、头像等）</view>
+            </view>
+            <button bindgetuserinfo="onAuthorizeCallback" openType="getUserInfo">立即授权</button>
+        </view>
+    </dialog>
+    <popup bindcancel="onPopupCancel" bindconfirm="onPopupConfirm" height="174" hidden="{{popupType!='weight'}}">
+        <view class="popup popup-slider popup-weight">
+            <text>{{errandWeights[weightIndex].Name}}</text>
+            <view class="slider">
+                <slider activeColor="#FBD40A" bindchange="onWeightSliderChange" max="{{errandWeights.length}}" value="{{weightIndex}}"></slider>
+            </view>
+        </view>
+    </popup>
+    <popup bindcancel="onPopupCancel" bindconfirm="onPopupConfirm" height="174" hidden="{{popupType!='expired'}}">
+        <view class="popup popup-slider popup-expired">
+            <text>{{expiredTimes[expiredIndex]}}小时</text>
+            <view class="slider">
+                <slider activeColor="#FBD40A" bindchange="onExpiredSliderChange" max="{{expiredTimes.length}}" value="{{expiredIndex}}"></slider>
+            </view>
+        </view>
+    </popup>
+    <popup bindcancel="onPopupCancel" bindconfirm="onPopupConfirm" height="228" hidden="{{popupType!='freight'}}">
+        <view class="popup popup-freight">
+            <view class="items">
+                <view bindtap="onFeeItemTap" class="item{{item<model.MinFreightMoney?' disabled':freightIndex==index||freights[freightIndex]<model.MinFreightMoney&&(freightValue||model.MinFreightMoney)==item?' actived':''}}" data-index="{{index}}" wx:for="{{freights}}" wx:key="{{item}}">
+                    <text class="upp" wx:if="{{item==model.MinFreightMoney}}">最低</text>
+                    <text class="money{{item>0?' money-rmb':''}}">{{item==0?'无':item}}</text>
+                </view>
+            </view>
+            <view bindtap="onFeeItemTap" class="item item-other" data-index="-1" wx:if="{{freightIndex>=0}}">其他金额</view>
+            <view class="item item-other actived" wx:else>
+        其他金额
+        <text class="symbol">：¥ </text>
+                <input bindblur="onFeeInputBlur" cursorSpacing="{{feeInputFocus?18:0}}" focus="{{feeInputFocus}}" type="number">{{feeInputValue?feeInputValue:''}}</input>
+            </view>
+        </view>
+    </popup>
+    <popup bindcancel="onPopupCancel" bindconfirm="onPopupConfirm" height="190" hidden="{{popupType!='money'}}">
+        <view class="popup popup-money">
+            <text class="caption">以供跑腿代购时参考(选填)</text>
+            <view class="input">
+        预估
+        <text class="symbol">：¥ </text>
+                <input bindblur="onMoneyInputBlur" cursorSpacing="{{moneyInputFocus?50:0}}" focus="{{moneyInputFocus}}" type="number">{{moneyInputValue?moneyInputValue:''}}</input>
+            </view>
+            <view class="desc">
+                <text class="iconfont icon-infofill"></text> 最高500元</view>
+        </view>
+    </popup>
+    <view class="header">
+        <view class="input">
+            <textarea bindblur="onRemarkConfirm" bindconfirm="onRemarkConfirm" focus="{{remarkInputFocus}}" placeholder="{{remarkPlaceHolder||'想让同学帮你干点什么...'}}" value="{{remarkValue||''}}"></textarea>
+        </view>
+        <block wx:if="true">
+            <view class="hr"></view>
+            <form bindsubmit="onMoneyTap" reportSubmit="true">
+                <view class="form-db advance">
+                    <view class="caption">如有需要垫付费用请在此写明，当面结算</view>
+                    <text class="text{{moneyValue?' money money-rmb':''}}">{{moneyValue?moneyValue:'预估垫付费用'}}</text>
+                    <text class="iconfont icon-right_light arrow"></text>
+                    <button class="btn-report" formType="submit"></button>
+                </view>
+            </form>
+        </block>
+        <block wx:if="{{errandType.Value==4}}">
+            <view class="hr"></view>
+            <view bindtap="onExpressFeeLink" class="advance">
+                <view class="caption">
+                    <text class="iconfont icon-infofill"></text>快递寄送费用参考</view>
+                <text class="text">查看</text>
+                <text class="iconfont icon-right_light arrow"></text>
+            </view>
+        </block>
+    </view>
+    <view class="body">
+        <view class="section address">
+            <block wx:for="{{addresses}}" wx:key="index">
+                <view bindtap="onAddressTap" class="row addr{{index==0?' from':' to'}}{{!item.address?'':' addr-data'}}" data-index="{{index}}" data-self="{{item.self}}" hoverClass="navigator-hover">
+                    <view catchtap="onAddressAddTap" class="icon" data-index="{{addressAdd?index:null}}" hoverClass="{{addressAdd?'navigator-hover':null}}">
+                        <text class="{{addressAdd?'iconfont icon-'+(index==addresses.length-1?'add':'move'):'dot'}}"></text>
+                    </view>
+                    <text class="content" wx:if="{{!item.address}}">{{item.text}}</text>
+                    <text class="content" wx:else>
+                        <block wx:if="{{!item.self&&item.address.Name}}">
+                            <text class="name">{{item.address.Name}}</text>
+                            <text class="desc" wx:if="{{item.address.Address&&item.address.Address.length}}">{{item.address.Address}}</text>
+                        </block>
+                        <block wx:else>
+                            <text class="name">{{item.address.Linkman}}<text wx:if="{{item.address.Phone}}">({{item.address.Phone}})</text>
+                            </text>
+                            <text class="desc">{{item.address.Address}}</text>
+                        </block>
+                    </text>
+                    <text class="iconfont icon-right_light arrow"></text>
+                </view>
+                <view class="hr"></view>
+            </block>
+            <view class="row date">
+                <picker bindchange="onDeliveryTimeChange" bindcolumnchange="onDeliveryTimeColumnChange" mode="multiSelector" range="{{deliveryTimes}}" rangeKey="text" value="{{deliveryTimeIndex}}">
+                    <view class="picker">
+                        <view class="text">{{deliveryTimeValue.text}}
+              <text class="font-blue" wx:if="{{!deliveryTimeValue.value&&errandType.Value<4}}">（预计{{util.formatDate(util.addDate(null,45,'m'),'m','time')}}送达）</text>
+                            <text wx:if="{{deliveryTimeValue.value&&errandType.Value<4}}">送达</text>
+                            <text class="font-blue" wx:if="{{!deliveryTimeValue.value&&errandType.Value==4}}">（预计{{util.formatDate(util.addDate(null,20,'m'),'m','time')}}上门）</text>
+                            <text wx:if="{{deliveryTimeValue.value&&errandType.Value==4}}">上门</text>
+                        </view>
+                        <text class="iconfont icon-right_light arrow"></text>
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="section prop">
+            <view bindtap="onFreightTap" class="row freight" hoverClass="navigator-hover">
+                <text class="caption">跑腿费
+                </text>
+                <text class="text">{{freightValue?'':model.FreightMoneyCaption?model.FreightMoneyCaption+'起送':'低至'}}<text class="money money-rmb">{{freightValue||model.MinFreightMoney||1}}</text>
+                </text>
+                <text class="iconfont icon-right_light arrow"></text>
+            </view>
+            <view class="hr"></view>
+            <!--
+            <view bindtap="onCouponTap" class="row coupon" hoverClass="navigator-hover">
+                <text class="caption">红包</text>
+                <text class="text{{couponValue?' text-value':''}}">{{!couponValue?(couponValidCount||0)+' 张可用':'¥ '+couponValue}}</text>
+                <text class="iconfont icon-right_light arrow"></text>
+            </view>
+
+            -->
+
+
+        </view>
+        <view class="section prop">
+            <block wx:if="{{!addressAdd}}">
+                <view bindtap="onWeightTap" class="row weight" hoverClass="navigator-hover">
+                    <text class="caption">物品重量</text>
+                    <text class="text{{weightValue?' text-value':''}}">{{weightValue?enums.getName(errandWeights,weightValue):'请选择'}}</text>
+                    <text class="iconfont icon-right_light arrow"></text>
+                </view>
+                <view class="hr"></view>
+            </block>
+            <view bindtap="onLimitTap" class="row tip" hoverClass="navigator-hover">
+                <text class="caption">接单限制</text>
+                <text class="text{{errandGenderLimit&&errandGenderLimit.Value?' text-value':''}}">{{errandGenderLimit.Name}}</text>
+                <text class="iconfont icon-right_light arrow"></text>
+            </view>
+            <view class="hr"></view>
+            <view bindtap="onExpiredTap" class="row expired" hoverClass="navigator-hover">
+                <text class="caption">订单过期</text>
+                <text class="text{{expiredValue&&expiredValue<24?' text-value':''}}">指定出发时间<text class="font-blue">{{expiredValue||24}}小时</text>内未接单</text>
+                <text class="iconfont icon-right_light arrow"></text>
+            </view>
+        </view>
+        <view class="agree">
+            <text class="iconfont icon-round{{acceptAgreement?'checkfill':''}}"></text>同意并接受<text bindtap="onServiceContractLink" class="contract">《用户协议》</text>
+        </view>
+    </view>
+    <form bindsubmit="onFormSubmit" reportSubmit="true">
+        <view class="footer">
+            <view class="left">
+                <view class="payment">待支付<text class="money money-rmb">{{moneyPayable}}</text>
+                </view>
+                <view class="desc">(不包含需垫付的商品费)</view>
+            </view>
+            <button formType="submit">提交订单</button>
+        </view>
+    </form>
+</view>
+<wxs module="enums" src="../../../assets/wxs/enums.wxs" />
+<wxs module="util" src="../../../assets/wxs/util.wxs" />

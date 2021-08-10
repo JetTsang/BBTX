@@ -1,0 +1,249 @@
+page {
+    background: #f0f0f0;
+}
+
+.input-placeholder,.textarea-placeholder {
+    color: #aaa;
+}
+
+.navigator-hover {
+    background-color: rgba(180,180,180,0.1);
+    opacity: 0.9;
+}
+
+navigator.button {
+    border: 2rpx solid #FBD40A;
+    border-radius: 10rpx;
+    background: #fff;
+    color: #FBD40A;
+    text-align: center;
+    font-size: 28rpx;
+}
+
+button {
+    border-radius: 0;
+}
+
+button[type='primary'] {
+    background: #FBD40A;
+}
+
+button[type='default'] {
+    background: #f0f0f0;
+    color: #555;
+}
+
+button::after {
+    border: 0;
+}
+
+form .form-db {
+    position: relative;
+}
+
+form button.btn-report {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.1);
+    padding: 0;
+}
+
+form button.btn-report.button-hover {
+    background-color: rgba(180,180,180,0.1);
+    opacity: 0.9;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    font-size: 28rpx;
+    color: #222;
+}
+
+.hr {
+    margin-left: 28rpx;
+    height: 0;
+    border-top: 1rpx solid #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
+
+.noscroll {
+    height: 100%;
+    overflow: hidden;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.font-gray {
+    color: #aaa;
+}
+
+.font-green {
+    color: #FBD40A;
+}
+
+.font-blue {
+    color: #3aabea;
+}
+
+.font-orange {
+    color: #ff9800;
+}
+
+.font-red {
+    color: #de534b;
+}
+
+.list .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+}
+
+.list .row2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40rpx;
+    margin-top: 10rpx
+}
+
+.list .row2 .caption {
+    font-size: 30rpx;
+    height: 100%;
+}
+
+
+.list .row .caption {
+    font-size: 30rpx;
+    height: 100%;
+}
+
+.list .row .value {
+    color: #666;
+    height: 100%;
+    font-size: 26rpx;
+    flex: 1;
+    text-align: right;
+}
+
+.list .row .value-holder {
+    color: #888;
+}
+
+.list .row .value-left {
+    height: 100%;
+    width: 65%;
+    font-size: 30rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list .row input {
+    height: 100%;
+    border: 0;
+    font-size: 30rpx;
+    width: 65%;
+}
+
+.list .row input.fill {
+    flex: 1;
+}
+
+.list .row .iconfont {
+    color: #aaa;
+    font-size: 28rpx;
+    margin-left: 10rpx;
+}
+
+.list .row-standard {
+    height: auto;
+    line-height: 40rpx;
+    padding-top: 28rpx;
+    padding-bottom: 28rpx;
+}
+
+.list .row-standard .caption {
+    width: 200rpx;
+}
+
+.list .row-standard .value-left {
+    width: auto;
+    flex: 1;
+    display: block;
+}
+
+.money-rmb::before {
+    margin-right: 0.2em;
+    content: '\00a5';
+    font-size: 0.6em;
+}
+
+.money-yuan::after {
+    margin-left: 0.2em;
+    content: '\5143';
+    font-size: 0.6em;
+}
+
+.money-ge::after {
+    margin-left: 0.2em;
+    content: '\4e2a';
+    font-size: 0.6em;
+}
+
+.money-out {
+    color: #3aabea;
+}
+
+.money-out::before {
+    content: "\002d";
+    margin-right: 8rpx;
+}
+
+.money-in {
+    color: #ff9800;
+}
+
+.money-in::before {
+    content: "\002b";
+    margin-right: 8rpx;
+}
+
+.dialog-authorize {
+    background: #fff;
+    border-radius: 10rpx;
+}
+
+.dialog-authorize .content {
+    padding: 40rpx;
+}
+
+.dialog-authorize .content .caption {
+    font-size: 30rpx;
+    padding-top: 10rpx;
+}
+
+.dialog-authorize .content .desc {
+    font-size: 30rpx;
+    color: #666;
+    padding-top: 30rpx;
+}
+
+.dialog-authorize button {
+    color: #FBD40A;
+    border-top: 1rpx solid #e0e0e0;
+    background: #fff;
+}

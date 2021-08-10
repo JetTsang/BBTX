@@ -1,0 +1,103 @@
+<view class="container">
+    <modal bindcancel="onModalCancel" bindconfirm="onModalConfirm" confirmColor="#FBD40A" confirmText="立即切换" hidden="{{modalType!='switchSchool'}}" title="">
+        <view class="modal-switch-school">
+            <image mode="widthFix" src="/assets/img/location.png"></image>
+            <view>当前定位，离你最近的学校是：</view>
+            <view class="school">{{nearestSchool&&nearestSchool.Name}}</view>
+        </view>
+    </modal>
+    <dialog bindclose="onDialogClose" closeButtonColor="#ea3339" closeButtonPosition="bottom" hidden="{{dialogType!='modal'}}" maskOpacity="0.5">
+        <view class="dialog-ad" style="width:{{model.PopupAd.Width*2}}rpx;height:{{model.PopupAd.Height*2}}rpx;">
+            <image catchtap="onDialogAdTap" src="{{model.PopupAd.Src}}"></image>
+            <view catchtap="onDialogAdDisappear" class="disappear">
+                <text class="iconfont icon-round{{!!disappearPopup?'checkfill':''}}"></text>不再弹出</view>
+        </view>
+    </dialog>
+    <view class="overlay" hidden="{{!showOverlay}}">
+        <form bindsubmit="onOverlaySubmit" reportSubmit="true">
+            <view class="notice">
+                <view class="info">
+                    <view>请直接点击具体类目下单</view>
+                    <text wx:if="{{categories.length>1}}">小技巧：类目上左右滑动，发现更多功能</text>
+                </view>
+                <button formType="submit">我知道了</button>
+            </view>
+        </form>
+    </view>
+    <view class="header">
+        <view class="header-bg" style="{{categories.length==0?'height:180rpx':''}};"></view>
+        <view class="header-content">
+            <view class="header-top">
+                <text class="title">
+                    <text class="iconfont icon-verticalline"></text>求帮忙</text>
+                <view bindtap="onSchoolTap" class="nearest" hoverClass="navigator-hover">
+                    <text class="iconfont icon-locationfill"></text>{{school_name||'定位中...'}}</view>
+            </view>
+            <view class="input">
+                <view class="form">
+                    <text class="dot"></text>
+                    <view bindtap="onQuestTap" class="txt">想让同学帮你干点什么？</view>
+                </view>
+                <swiper bindchange="onCategoryChange" style="height:{{(categories[0].length>4?(110+16)*2+10:categories[0].length>0?110+16+10:0)+(categories.length>1?30:0)}}rpx">
+                    <swiper-item wx:for="{{categories}}" wx:for-index="i" wx:key="i">
+                        <view bindtap="onCategoryItemTap" class="item" data-url="{{item.Url}}" data-id="{{item.id}}        "hoverClass="navigator-hover" style="{{item.Keyword?null:'visibility:hidden'}}" wx:for="{{categories[i]}}" wx:key="Keyword">
+                            <text class="hot" wx:if="{{item.IsHot}}">HOT</text>
+                            <text class="tag" wx:if="{{!item.IsHot&&item.Tag&&item.Tag.length}}">{{item.Tag}}</text>
+                            <text class="key">{{item.Keyword}}</text>
+                            <text class="detail" wx:if="{{item.Detail}}">{{item.Detail}}</text>
+                        </view>
+                    </swiper-item>
+                </swiper>
+                <view class="swiper-bar" wx:if="{{categories.length>1}}">
+                    <view class="{{categoryIndex==index?'actived':''}}" wx:for="{{categories}}" wx:key="index"></view>
+                </view>
+            </view>
+        </view>
+        <!-- <view class="banner" wx:if="{{model.Banners.length}}">
+            <view bindtap="onBannerTap" class="bg" data-url="{{model.Banners[0].Url}}" hoverClass="navigator-hover">
+                <image mode="aspectFill" src="{{model.Banners[0].Src}}"></image>
+            </view>
+        </view> -->
+    </view>
+    <view class="body">
+        <view class="body-top">
+           <view class='caption'style="background:#f0f0f0">
+                <swiper indicator-dots="{{indicatorDots}}"style="width:100%"
+                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                <block wx:for="{{model.Banners}}"wx:key="key">
+                <navigator url="{{item.Url}}?id={{item.ad_id}}&content2={{item.Content2}}&height2={{item.Height2}}&content3={{item.Content3}}&height3={{item.Height3}}&content4={{item.Content4}}&height4={{item.Height4}}&content={{item.Content}}&height={{item.Height}}&content5={{item.Content5}}&height5={{item.Height5}}&content6={{item.Content6}}&height6={{item.Height6}}&content7={{item.Content7}}&height7={{item.Height7}}&content8={{item.Content8}}&height8={{item.Height8}}">
+                  <swiper-item style="border-radius:10rpx">
+                    <image src="{{item.Src}}" style='width:100%;height:100%'/>
+                  </swiper-item>
+                </navigator>
+                </block>
+                </swiper>
+</view> 
+
+        </view>
+        <view class="body-list">
+            <block wx:for="{{model.ErrandOrders}}" wx:key="Id">
+                <view class="hr"></view>
+                <view bindtap="onItemTap" class="item" data-index="{{index}}">
+                    <view class="left ellipsis">
+                        <text class="content">
+                            <text class="iconfont icon-attentionforbid secret" wx:if="{{item.IsSecret}}"></text>{{item.Remark}}</text>
+                        <view class="desc">
+                            <text class="type">{{item.Type==1?'外卖跑腿':item.cateName}}</text>
+                            <text class="time">{{item.CreatedTimeString}}</text>{{item.Description}}</view>
+                    </view>
+                    <view class="right">
+                        <view>赏金：<text class="money money-rmb">{{item.MoneyFreight+item.MoneyTip}}</text>
+                        </view>
+                        <button catchtap="onItemSubmitTap" class="{{item.Status>32?'finished':item.Status>2?'accepted':item.IsForbiddenAccept?'disabled':''}}" data-index="{{index}}" type="primary" wx:if="{{model.IsLogin}}">{{item.Status>32?'已完成':item.Status>2?'已接单':item.IsForbiddenAccept?'认证接单':'接单'}}</button>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="empty" wx:if="{{!model.BestDeliverers||model.BestDeliverers.length==0}}">
+        <text class="iconfont icon-time"></text>
+        <view>加载中…</view>
+    </view>
+</view>
+<wxs module="enums" src="../../../assets/wxs/enums.wxs" />

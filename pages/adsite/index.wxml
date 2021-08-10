@@ -1,0 +1,10 @@
+<image src='{{ad_content}}' style="width:100%;height:{{ad_height}}rpx"></image>
+<view wx-if="{{ad_height2}}"><image src='{{ad_content2}}' style="width:100%;height:{{ad_height2}}rpx"></image></view>
+<view wx-if="{{ad_height3}}"><image src='{{ad_content3}}' style="width:100%;height:{{ad_height3}}rpx"></image></view>
+<view wx-if="{{ad_height4}}"><image src='{{ad_content4}}' style="width:100%;height:{{ad_height4}}rpx"></image></view>
+<view wx-if="{{ad_height5}}"><image src='{{ad_content5}}' style="width:100%;height:{{ad_height5}}rpx"></image></view>
+<view wx-if="{{ad_height6}}"><image src='{{ad_content6}}' style="width:100%;height:{{ad_height6}}rpx"></image></view>
+<view wx-if="{{ad_height7}}"><image src='{{ad_content7}}' style="width:100%;height:{{ad_height7}}rpx"></image></view>
+<view wx-if="{{ad_height8}}"><image src='{{ad_content8}}' style="width:100%;height:{{ad_height8}}rpx"></image></view>
+
+
